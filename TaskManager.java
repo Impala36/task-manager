@@ -7,8 +7,8 @@ import java.util.Scanner;
  * output back to the TaskManager.
  *
  * @author Wang Zhenquan
- * @version Level 10, v1.0
- * @since 21/10/2018
+ * @version Level 12, v1.1  todo: add jUnit tests, asserts, param info, non-static methods.
+ * @since 8/11/2018         todo: update object and class diagram, add more user stories.
  */
 class TaskManager {
     private UI ui = new UI();
@@ -17,16 +17,16 @@ class TaskManager {
     private Parser parser = new Parser();
     private Scanner in = new Scanner(System.in);
     private boolean repeat = true;
-    /**
-     * @param filePath path where Tasks.txt will be created and accessed from.
-     */
-    private TaskManager(String filePath) {
+    private String filePath = "C:\\Users\\USER\\Desktop\\Tasks.txt";
+
+    private TaskManager() {
         database = new Database(filePath);
         try {
             tasks = new TaskList(database.load(ui));
             if (tasks.size() == 0) {
                 throw new TaskManagerException
-                        (ui.colorRed("\nTasks.txt has been created in your Desktop."));
+                        (ui.colorRed("A Tasks.txt will be created in your Desktop " +
+                                "when you create a new task."));
             } else {
                 System.out.println(ui.colorRed("\nTasks.txt found. Task list loaded."));
             }
@@ -40,10 +40,11 @@ class TaskManager {
         ui.commandsMessage();
         while (repeat) {
             ui.enterCommand();
-            repeat = parser.parseInput(in.nextLine(), ui, tasks, database);
+            repeat = parser.parseInput(filePath, in.nextLine(), ui, tasks, database);
         }
     }
+
     public static void main(String[] args) {
-        new TaskManager("C:\\Users\\USER\\Desktop\\Tasks.txt").run();
+        new TaskManager().run();
     }
 }

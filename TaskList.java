@@ -1,6 +1,5 @@
 package com.project.taskmanager;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -29,11 +28,11 @@ class TaskList {
         return tasks.get(index);
     }
 
-    void changeDone(String line, UI ui, TaskList tasks) {
+    void changeDone(String filepath, String line, UI ui, TaskList tasks, Database database) {
         line = line.substring("done".length()).trim();
         try {
             if (!line.isEmpty()) {
-                markAsDone(line, ui, tasks);
+                markAsDone(filepath, line, ui, tasks, database);
             } else {
                 throw new TaskManagerException(ui.colorRed("Please type in the" +
                         " 'done <task index number>' format."));
@@ -43,11 +42,12 @@ class TaskList {
         }
     }
 
-    private void markAsDone(String line, UI ui, TaskList tasks) {
+    private void markAsDone(String filepath, String line, UI ui, TaskList tasks, Database database) {
         try {
             if (tasks.size() != 0) {
                 int index = Integer.parseInt(line);
                 tasks.get(index - 1).setDone(true);
+                database.writeAsDone(index);
                 ui.markedAsDone(index, tasks);
                 ui.showTotal(tasks);
             } else System.out.println(ui.colorRed("There are no tasks to mark as done."));

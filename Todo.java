@@ -4,15 +4,20 @@ package com.project.taskmanager;
  * Adds to the task list a Todo task with the given task description.
  */
 class Todo extends Task {
-    protected boolean isDone;
+    //protected boolean isDone;
 
     Todo(String input) {
         super(input);
-        isDone = false;
+        //isDone = false;
+    }
+
+    Todo(String input, boolean isDone) {
+        super(input);
+        setDone(isDone);
     }
 
     String isDone() {
-        if (isDone) return "Yes";
+        if (getDone()) return "Yes";
         else return "No";
     }
 

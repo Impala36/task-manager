@@ -1,7 +1,5 @@
 package com.project.taskmanager;
 
-import java.util.Scanner;
-
 /**
  * Responsible for interacting with the user. Ideally, only this class should interact with the user.
  */
@@ -24,7 +22,7 @@ class UI {
     }
 
     void exit() {
-        System.out.println("\n\033[33mThanks for using TaskManager. Goodbye!");
+        System.out.println("\n\033[33mThank you for using TaskManager. Goodbye!");
     }
 
     void showTotal(TaskList tasks) {
@@ -48,7 +46,8 @@ class UI {
     }
 
     void markedAsDone(int index, TaskList tasks) {
-        System.out.println("Task [" + index + "] " + tasks.get(index - 1).getDescription() + " has been set as completed.");
+        System.out.println("\033[33mTask [" + index + "] "
+                + tasks.get(index - 1).getDescription() + " has been set as completed.\033[0m");
     }
 
     String colorRed(String input) {

@@ -14,8 +14,14 @@ abstract class Task {
     void setDone(boolean isDone) {
         this.isDone = isDone;
     }
+
+    boolean getDone() {
+        return isDone;
+    }
+
     String getDescription() {
         return task;
     }
+
     abstract String getTask();
 }

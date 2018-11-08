@@ -12,7 +12,13 @@ class Deadline extends Todo {
         split = input.split("/by");
     }
 
+    Deadline(String input, boolean isDone) {
+        super(input);
+        split = input.split("\\| Do by:");
+        setDone(isDone);
+    }
+
     String getTask() {
-        return split[0] + "\n\tis done? " + isDone() + "\n\tdo by: " + split[1];
+        return split[0].trim() + "\n\tis done? " + isDone() + "\n\tdo by: " + split[1].trim();
     }
 }

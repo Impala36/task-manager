@@ -11,7 +11,7 @@ class Parser {
         return input.trim().split(" ")[0];
     }
 
-    boolean parseInput(String line, UI ui, TaskList tasks, Database database) {
+    boolean parseInput(String filepath, String line, UI ui, TaskList tasks, Database database) {
 
         String command = getCommandWord(line);
         switch (command) {
@@ -25,7 +25,7 @@ class Parser {
                 createDeadline(line, ui, tasks, database);
                 break;
             case "done":
-                tasks.changeDone(line, ui, tasks);
+                tasks.changeDone(filepath, line, ui, tasks, database);
                 break;
             case "print":
                 ui.printTasks(tasks);
@@ -47,7 +47,7 @@ class Parser {
                         (ui.colorRed("Please type in the 'todo <something>' format."));
             } else if (line.contains("todo")) {
                 tasks.add(new Todo(line));
-                database.createTask(database.filepath, line, tasks);
+                database.createTask(database.filepath,line, ui, tasks);
                 ui.showTotal(tasks);
             }
         } catch (TaskManagerException e) {
@@ -70,7 +70,7 @@ class Parser {
                                     "<something> /by <when>' format."));
                 } else if (line.contains("deadline")) {
                     tasks.add(new Deadline(line));
-                    database.createTask(database.filepath, line, tasks);
+                    database.createTask(database.filepath, line, ui, tasks);
                     ui.showTotal(tasks);
                 }
             }
