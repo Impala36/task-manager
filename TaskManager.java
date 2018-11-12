@@ -7,8 +7,8 @@ import java.util.Scanner;
  * output back to the TaskManager.
  *
  * @author Wang Zhenquan
- * @version Level 12, v1.1  todo: add jUnit tests, asserts, param info, non-static methods.
- * @since 8/11/2018         todo: update object and class diagram, add more user stories.
+ * @version Level 12, v1.2
+ * @since 12/11/2018
  */
 class TaskManager {
     private UI ui = new UI();

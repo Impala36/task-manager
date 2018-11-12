@@ -7,10 +7,22 @@ import java.io.IOException;
  */
 class Parser {
 
-    String getCommandWord(String input) {
-        return input.trim().split(" ")[0];
+    /**
+     * @param line The entire user input.
+     * @return Returns only the first word of the input, which should be the command.
+     */
+    String getCommandWord(String line) {
+        return line.trim().split(" ")[0];
     }
 
+    /**
+     * @param filepath The file path as stated in the TaskManager class.
+     * @param line The entire user input.
+     * @param ui The UI created in the TaskManager class.
+     * @param tasks The TaskList created in the TaskManager class.
+     * @param database The Database created in the TaskManager class.
+     * @return Returns true when an invalid command is given, to repeat user input.
+     */
     boolean parseInput(String filepath, String line, UI ui, TaskList tasks, Database database) {
 
         String command = getCommandWord(line);
@@ -83,5 +95,4 @@ class Parser {
             ui.printError(ui.colorRed("IOException encountered: " + e.getMessage()));
         }
     }
-
 }

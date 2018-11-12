@@ -25,7 +25,7 @@ class Database {
                 if (line.trim().isEmpty()) { //ignore empty lines
                     continue;
                 }
-                loadedTasks.add(createTask(filepath, line, ui, null)); //convert line to task then add to list
+                loadedTasks.add(createTask(filepath, line, ui, null));
             }
         } catch (FileNotFoundException e) {
             ui.printError(ui.colorRed("File not found: " + e.getMessage()));
@@ -65,19 +65,19 @@ class Database {
         boolean isDone = false;
 
         switch (str) {
-            case "todo": //creating task from user
+            case "todo": //creating task from user input in memory format.
                 line = line.substring("todo".length()).trim();
                 fw.write("[" + tasks.size() + "] Todo (not done): " + line + System.lineSeparator());
                 fw.close();
                 return new Todo(line);
-            case "deadline": //creating task from user
+            case "deadline": //creating task from user input in memory format.
                 line = line.substring("deadline".length()).trim();
                 String split[] = line.split("/by");
                 fw.write("[" + tasks.size() + "] Deadline (not done): "
-                        + split[0].trim() + " | Do by: " + split[1].trim());
+                        + split[0].trim() + " | Do by: " + split[1].trim() + System.lineSeparator());
                 fw.close();
                 return new Deadline(line);
-            case "Todo": //creating task from file
+            case "Todo": //creating task from Tasks.txt in readable format.
                 index = Integer.parseInt(line.split("Todo")[0]
                         .replace("[", "").replace("] ", ""));
                 line = line.split("Todo")[1];
@@ -89,7 +89,7 @@ class Database {
                 }
                 fw.close();
                 return new Todo("todo" + line, isDone);
-            case "Deadline": //creating task from file
+            case "Deadline": //creating task from Tasks.txt in readable format.
                 index = Integer.parseInt(line.split("Deadline")[0]
                         .replace("[", "").replace("] ", ""));
                 line = line.split("Deadline")[1];
@@ -103,7 +103,7 @@ class Database {
                 fw.close();
                 return new Deadline("deadline" + line, isDone);
             default:
-                return new Todo("");
+                return null; //Null task returned when an error is present.
         }
     }
 
